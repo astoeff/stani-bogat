@@ -22,7 +22,7 @@ class IndexView(generic.ListView):
     #     ).order_by('-pub_date')[:5]
 
     template_name = 'polls/index.html'
-    context_object_name = 'latest_question_list'
+    context_object_name = 'categories_list'
 
     def get_queryset(self):
         """
@@ -105,6 +105,12 @@ def vote(request, question_id):
         return render(request, 'polls/results.html', {'question': question, 'choice': selected_choice})
 
 
+def choose_random_question_in_category(category_id):
+    category = Category.objects.all().filter(pk=category_id)[0]
+    question = random.choice(category.question_set.all())
+    return question
+
+
 def choose_random(request, category_id):
     category = get_object_or_404(Category, pk=category_id)
     try:
@@ -123,6 +129,18 @@ def result(request, question_id, choice_id):
     question = get_object_or_404(Question, pk=question_id)
     choice = get_object_or_404(Choice, pk=choice_id)
     return render(request, 'polls/results', {'question': question, 'choice': choice})
+
+
+# def game(request):
+#     price = int(request.POST['category_price'])
+#     category = Category.objects.all().filter(price=price)[0]
+#     return HttpResponseRedirect(reverse('polls:random', args=(category.id,)))
+
+def game(request):
+    price = int(request.POST['category_price'])
+    category = Category.objects.all().filter(price=price)[0]
+    question = choose_random_question_in_category(category.id)
+    return render(request, 'polls/process_question.html', {'question': question, 'price': category.price})
 
 
 
