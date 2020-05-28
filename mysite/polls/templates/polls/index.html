@@ -7,7 +7,7 @@
 {% if latest_question_list %}
     <ul>
     {% for category in latest_question_list %}
-        <li><a href="{% url 'polls:detail' category.id%}" style="color: #00008B">{{ category }}</a></li>
+        <li><a href="{% url 'polls:random' category.id %}" style="color: #00008B">{{ category }}</a></li>
     {% endfor %}
     </ul>
 {% else %}

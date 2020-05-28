@@ -9,7 +9,7 @@ urlpatterns = [
     path('<int:pk>/questions/', views.QuestionDetailView.as_view(), name='q_detail'),
     path('<int:question_id>/vote/', views.vote, name='vote'),
     path('<int:pk>/results/', views.ResultsView.as_view(), name='results'),
-    
+    path('random/<int:category_id>', views.choose_random, name='random')
     # path('', views.home, name='home'),
     # path('<int:category_price/', views.QuestionsView.as_view(), name='questions')
 ]
