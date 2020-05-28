@@ -100,7 +100,8 @@ def vote(request, question_id):
         # Always return an HttpResponseRedirect after successfully dealing
         # with POST data. This prevents data from being posted twice if a
         # user hits the Back button.
-        return HttpResponseRedirect(reverse('polls:results', args=(question.id,)))
+        # return HttpResponseRedirect(reverse('polls:results', args=(question.id, selected_choice.id)))
+        return render(request, 'polls/results.html', {'question': question, 'choice': selected_choice})
 
 
 def choose_random(request, category_id):
@@ -108,11 +109,17 @@ def choose_random(request, category_id):
     try:
         selected_choice = random.choice(category.question_set.all())
     except (KeyError, Category.DoesNotExist):
-        # Redisplay the question voting form.
-        # 
+        # return render(request, 'polls/index.html', {})
         pass
     else:
         return HttpResponseRedirect(reverse('polls:q_detail', args=(selected_choice.id,)))
+
+
+def result(request, question_id, choice_id):
+    question = get_object_or_404(Question, pk=question_id)
+    choice = get_object_or_404(Choice, pk=choice_id)
+    return render(request, 'polls/results', {'question': question, 'choice': choice})
+
 
 
 # def home(request):
