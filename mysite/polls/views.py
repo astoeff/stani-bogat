@@ -4,6 +4,7 @@ from django.urls import reverse
 from django.views import generic
 from django.utils import timezone
 from .models import Choice, Question, Category
+from django.db.models import Q
 import random
 
 
@@ -107,10 +108,13 @@ def vote(request, question_id):
 def choose_random(request, category_id):
     category = get_object_or_404(Category, pk=category_id)
     try:
-        selected_choice = random.choice(category.question_set.all())
+        if 'question' in request.POST.keys():
+            selected_choice = random.choice(category.question_set.all().filter(~Q(id=request.POST['question'])))
+        else:
+            selected_choice = random.choice(category.question_set.all())
     except (KeyError, Category.DoesNotExist):
-        # return render(request, 'polls/index.html', {})
-        pass
+        return render(request, 'polls/index.html', {})
+        # pass
     else:
         return HttpResponseRedirect(reverse('polls:q_detail', args=(selected_choice.id,)))
 
