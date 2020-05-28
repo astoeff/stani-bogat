@@ -1,0 +1,22 @@
+li a {
+    color: white;
+}
+
+/*body {
+    background: white url("images/stani-bogat-0104-x264-277267-800x446.jpg") no-repeat;
+}*/
+
+body {
+ background-image: url("images/stani-bogat-0104-x264-277267-800x446.jpg");
+ background-color: #cccccc;
+ height: 100%;
+
+  /* Center and scale the image nicely */
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  opacity: 0.85;
+}
+
+form { margin: 0 auto; }
+
