@@ -24,5 +24,5 @@
 <!-- <a href="{% url 'polls:detail' question.id %}" style="color:MidnightBlue;">Vote again?</a> -->
 <!-- <a href="{% url 'polls:random' question.category.id%}" style="color:MidnightBlue;">Next</a> -->
 <input type='submit' value="New Question">
-<a href="{% url 'polls:index' %}" style="color:MidnightBlue;">Choose another category</a>
+<button type="submit" formaction="{% url 'polls:index' %}" formmethod='get'>Another Category</button>
 </form>
