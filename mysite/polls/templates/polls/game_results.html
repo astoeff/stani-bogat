@@ -1,0 +1,16 @@
+{% load static %}
+
+<link rel="stylesheet" type="text/css" href="{% static 'polls/style.css' %}">
+<form action="{% url 'polls:random' question.category.id %}" method="post" style="background-color:Wheat;">
+{% csrf_token %}
+{% if choice.is_correct %}
+	<h1 style="color:green;" align='center'>ВЕРЕН ОТГОВОР</h1>
+	<h2 style="color:MidnightBlue;" align="center">СПЕЧЕЛИХТЕ {{ question.category.price }}лв.</h2>
+	<!-- <button type='submit' name='question' value="{{ question.id }}">Next Question</button> -->
+	<button type="submit" formaction="{% url 'polls:game' %}" formmethod='post' name='category_position' value='0'>Нова игра</button>
+	<button type="submit" formaction="{% url 'polls:game' %}" formmethod='post' name='category_position' value="{{ position }}">Следващ въпрос</button>
+{% else %}
+	<h2 style="color:red;">ГРЕШЕН ОТГОВОР</h2>
+{% endif %}
+
+</form>

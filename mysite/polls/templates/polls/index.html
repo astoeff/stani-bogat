@@ -11,7 +11,7 @@
         <li><a href="{% url 'polls:random' category.id %}" style="color: #00008B">{{ category }}</a></li>
     {% endfor %}
     </ul>
-    <button type="submit" formaction="{% url 'polls:game' %}" formmethod='post' name='category_price' value='100' style='color: blue;'>Започни игра</button>
+    <button type="submit" formaction="{% url 'polls:game' %}" formmethod='post' name='category_position' value='0' style='color: blue;'>Започни игра</button>
 {% else %}
     <p>No categories are available.</p>
 {% endif %}

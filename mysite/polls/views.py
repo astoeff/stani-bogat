@@ -131,17 +131,43 @@ def result(request, question_id, choice_id):
     return render(request, 'polls/results', {'question': question, 'choice': choice})
 
 
+def get_all_categories_sorted_by_price():
+    return Category.objects.all().order_by('price')
+
+
 # def game(request):
 #     price = int(request.POST['category_price'])
 #     category = Category.objects.all().filter(price=price)[0]
 #     return HttpResponseRedirect(reverse('polls:random', args=(category.id,)))
 
 def game(request):
-    price = int(request.POST['category_price'])
-    category = Category.objects.all().filter(price=price)[0]
+    position = int(request.POST['category_position'])
+    category = get_all_categories_sorted_by_price()[position]
     question = choose_random_question_in_category(category.id)
-    return render(request, 'polls/process_question.html', {'question': question, 'price': category.price})
+    return render(request, 'polls/process_question.html', {'question': question, 'price': category.price, 'position': position + 1})
 
+
+def game_vote(request, question_id):
+    question = get_object_or_404(Question, pk=question_id)
+    position = request.POST['position']
+    print(position)
+    # return 0
+    try:
+        selected_choice = question.choice_set.get(pk=request.POST['choice'])
+    except (KeyError, Choice.DoesNotExist):
+        # Redisplay the question voting form.
+        return render(request, 'polls/q_detail.html', {
+            'question': question,
+            'error_message': "You didn't select a choice.",
+        })
+    else:
+        selected_choice.votes += 1
+        selected_choice.save()
+        # Always return an HttpResponseRedirect after successfully dealing
+        # with POST data. This prevents data from being posted twice if a
+        # user hits the Back button.
+        # return HttpResponseRedirect(reverse('polls:results', args=(question.id, selected_choice.id)))
+        return render(request, 'polls/game_results.html', {'question': question, 'choice': selected_choice, 'position': position})
 
 
 # def home(request):
