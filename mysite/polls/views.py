@@ -142,6 +142,8 @@ def get_all_categories_sorted_by_price():
 
 def game(request):
     position = int(request.POST['category_position'])
+    if position == 2:
+        return render(request, 'polls/congratulations.html', {})
     category = get_all_categories_sorted_by_price()[position]
     question = choose_random_question_in_category(category.id)
     return render(request, 'polls/process_question.html', {'question': question, 'price': category.price, 'position': position + 1})
