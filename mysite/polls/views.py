@@ -93,7 +93,7 @@ def vote(request, question_id):
         # Redisplay the question voting form.
         return render(request, 'polls/q_detail.html', {
             'question': question,
-            'error_message': "You didn't select a choice.",
+            'error_message': "Моля, изберете отговор!",
         })
     else:
         selected_choice.votes += 1
@@ -156,9 +156,11 @@ def game_vote(request, question_id):
         selected_choice = question.choice_set.get(pk=request.POST['choice'])
     except (KeyError, Choice.DoesNotExist):
         # Redisplay the question voting form.
-        return render(request, 'polls/q_detail.html', {
+        return render(request, 'polls/process_question.html', {
             'question': question,
-            'error_message': "You didn't select a choice.",
+            'price': question.category.price,
+            'position': position,
+            'error_message': "Моля, изберете отговор!",
         })
     else:
         selected_choice.votes += 1

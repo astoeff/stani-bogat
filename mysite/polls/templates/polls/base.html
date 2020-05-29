@@ -1,0 +1,6 @@
+<form>
+{% csrf_token %}
+<button type="submit" formaction="{% url 'polls:index' %}" formmethod='get'>Начало</button>
+</form>
+{% block content %}
+{% endblock %}
