@@ -175,6 +175,15 @@ def game_vote(request, question_id):
         # return HttpResponseRedirect(reverse('polls:results', args=(question.id, selected_choice.id)))
         return render(request, 'polls/game_results.html', {'question': question, 'choice': selected_choice, 'position': position})
 
+def take_money(request):
+    categories = get_all_categories_sorted_by_price()
+    category = Category.objects.all().filter(price=request.POST['price'])[0]
+    index = (*categories,).index(category)
+    if index == 0:
+        price_won = 0
+    else:
+        price_won = categories[index - 1]
+    return render(request, 'polls/take_money.html', {'price': price_won})
 
 # def home(request):
 #     # question = get_object_or_404(Question, pk=question_id)

@@ -12,7 +12,9 @@ urlpatterns = [
     path('random/<int:category_id>', views.choose_random, name='random'),
     path('<int:question_id>/<int:choice_id>/results/', views.result, name='results'),
     path('game/', views.game, name='game'),
-    path('game/vote/<int:question_id>/', views.game_vote, name='game_vote')
+    path('game/vote/<int:question_id>/', views.game_vote, name='game_vote'),
+    path('game/take-money', views.take_money, name='take_money')
+
 
     # path('', views.home, name='home'),
     # path('<int:category_price/', views.QuestionsView.as_view(), name='questions')
