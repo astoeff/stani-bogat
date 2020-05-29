@@ -143,11 +143,11 @@ def get_all_categories_sorted_by_price():
 def game(request):
     # money_if_game_lost = '1000'
     position = int(request.POST['category_position'])
-    if position == 6:
+    if position == 15:
         return render(request, 'polls/congratulations.html', {})
     category = get_all_categories_sorted_by_price()[position]
     question = choose_random_question_in_category(category.id)
-    return render(request, 'polls/process_question.html', {'question': question, 'price': category.price,
+    return render(request, 'polls/process_question.html', {'question': question, 'price': category,
                 'position': position + 1})
 
 
