@@ -6,6 +6,7 @@ from django.utils import timezone
 
 class Category(models.Model):
     price = models.IntegerField(default=100, unique=True)
+    money_for_loss = models.IntegerField(default=0)
 
     def __str__(self):
         str_representation = str(self.price)
