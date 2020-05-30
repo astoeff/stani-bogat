@@ -1,9 +1,8 @@
 {% load static %}
 <link rel="stylesheet" type="text/css" href="{% static 'polls/style.css' %}">
 <body>
-<form>
-{% csrf_token %}
-<button type="submit" formaction="{% url 'polls:index' %}" formmethod='get'>Начало</button>
+<form action="{% url 'polls:index' %}" method='get'>
+<input type="submit" value="Начало" style='color: blue;'>
 </form>
 {% block content %}
 {% endblock %}
