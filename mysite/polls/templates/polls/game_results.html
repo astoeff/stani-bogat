@@ -14,7 +14,7 @@
 	<h2 style="color:red;" align='center'>ГРЕШЕН ОТГОВОР</h2>
 	<h2 style="color:red;" align='center'>Останахте с {{ question.category.money_for_loss }}лв.</h2>
 {% endif %}
-<button type="submit" formaction="{% url 'polls:game' %}" formmethod='post' name='category_position' value='0'>Нова игра</button>
+<button type="submit" formaction="{% url 'polls:game' %}" formmethod='post' name='category_position' value='0' style="color: MidnightBlue;">Нова игра</button>
 
 </form>
 {% endblock %}

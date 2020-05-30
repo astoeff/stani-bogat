@@ -14,7 +14,7 @@
     <label for="choice{{ forloop.counter }}">{{ choice.choice_text }}</label><br>
 {% endfor %}
 <!-- <input type="submit" style='color: blue;' name='position' value="{{ position }}"> -->
-<button type="submit" style='color: blue;' name='position' value="{{ position }}">Избор</button>
-<button type="submit" style='color: blue;' formaction="{% url 'polls:take_money' %}" formmethod="post" name='price' value="{{ question.category.price }}">Отказвам се</button>
+<button type="submit" style='color: MidnightBlue;' name='position' value="{{ position }}">Избор</button>
+<button type="submit" style='color: MidnightBlue;' formaction="{% url 'polls:take_money' %}" formmethod="post" name='price' value="{{ question.category.price }}">Отказвам се</button>
 </form>
 {% endblock %}
