@@ -2,6 +2,6 @@
 {% block content %}
 <form style="background-color: Wheat">
 {% csrf_token %}
-<h1 style="color:MidnightBlue;" align="center">Вие завършихте своята игра с {{ price }}лв.</h1>
+<h1 align="center" style="color: green;">Вие завършихте своята игра с {{ price }}лв.</h1>
 <button type="submit" formaction="{% url 'polls:game' %}" formmethod='post' name='category_position' value='0'>Нова игра</button>
 {% endblock %}

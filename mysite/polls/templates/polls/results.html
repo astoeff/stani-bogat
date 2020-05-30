@@ -1,5 +1,6 @@
+{% extends 'polls/base.html' %}
+{% block content %}
 {% load static %}
-
 <link rel="stylesheet" type="text/css" href="{% static 'polls/style.css' %}">
 <form action="{% url 'polls:random' question.category.id %}" method="post" style="background-color:Wheat;">
 {% csrf_token %}
@@ -23,6 +24,7 @@
 
 <!-- <a href="{% url 'polls:detail' question.id %}" style="color:MidnightBlue;">Vote again?</a> -->
 <!-- <a href="{% url 'polls:random' question.category.id%}" style="color:MidnightBlue;">Next</a> -->
-<button type='submit' name='question' value="{{ question.id }}">Next Question</button>
-<button type="submit" formaction="{% url 'polls:index' %}" formmethod='get'>Another Category</button>
+<button type='submit' name='question' value="{{ question.id }}">Следващ въпрос</button>
+<!-- <button type="submit" formaction="{% url 'polls:index' %}" formmethod='get'>Another Category</button> -->
 </form>
+{% endblock %}
