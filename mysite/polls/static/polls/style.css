@@ -28,3 +28,32 @@ button.index {
   height: 2em;
   font-size: 20px;
 }
+
+button.list-category {
+  width: 10em;
+  height: 2em;
+  font-size: 20px;
+}
+
+#categories-by-5s {
+  padding-left: 20px;
+  float: left;
+}
+
+#button-holder {
+  padding-bottom: 10px;
+}
+
+#all-categories {
+  display: table;
+}
+
+#categories-text {
+  padding-left: 20px; 
+}
+
+input.home-button {
+  width: 5em;
+  height: 2em;
+  font-size: 20px;
+}
