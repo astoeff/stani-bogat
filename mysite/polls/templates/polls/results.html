@@ -3,28 +3,31 @@
 {% load static %}
 <link rel="stylesheet" type="text/css" href="{% static 'polls/style.css' %}">
 <form action="{% url 'polls:random' question.category.id %}" method="post" style="background-color:Wheat;">
-{% csrf_token %}
-<h1 style="color:MidnightBlue; font-size: 40px;" align="center">{{ question.question_text }}</h1>
+	{% csrf_token %}
+	<div id="bottom-padded">
+		<div id="question-data">
+			<h1 style="color:MidnightBlue; font-size: 40px;" align="center">{{ question.question_text }}</h1>
 
-{% if choice.is_correct %}
-	<h2 style="color:green; font-size: 30px;">ВЕРЕН ОТГОВОР</h2>
-{% else %}
-	<h2 style="color:red; font-size: 30px;">ГРЕШЕН ОТГОВОР</h2>
-{% endif %}
+			{% if choice.is_correct %}
+				<h2 style="color:green; font-size: 30px;">ВЕРЕН ОТГОВОР</h2>
+			{% else %}
+				<h2 style="color:red; font-size: 30px;">ГРЕШЕН ОТГОВОР</h2>
+			{% endif %}
 
-<ul>
-{% for choice in question.choice_set.all %}
-    {% if choice.is_correct %}
-        <li style="color:green; font-size: 20px;">{{ choice.choice_text }} -- {{ choice.votes }}/{{ question.votes }} vote{{ choice.votes|pluralize }}</li>
-    {% else %}
-        <li style="color:red; font-size: 20px;">{{ choice.choice_text }} -- {{ choice.votes }}/{{ question.votes }} vote{{ choice.votes|pluralize }}</li>
-    {% endif %}
-{% endfor %}
-</ul>
+			<ul>
+			{% for choice in question.choice_set.all %}
+			    {% if choice.is_correct %}
+			        <li style="color:green; font-size: 25px;">{{ choice.choice_text }} -- {{ choice.votes }}/{{ question.votes }} vote{{ choice.votes|pluralize }}</li>
+			    {% else %}
+			        <li style="color:red; font-size: 25px;">{{ choice.choice_text }} -- {{ choice.votes }}/{{ question.votes }} vote{{ choice.votes|pluralize }}</li>
+			    {% endif %}
+			{% endfor %}
+			</ul>
 
-<!-- <a href="{% url 'polls:detail' question.id %}" style="color:MidnightBlue;">Vote again?</a> -->
-<!-- <a href="{% url 'polls:random' question.category.id%}" style="color:MidnightBlue;">Next</a> -->
-<button type='submit' name='question' value="{{ question.id }}" style="color: MidnightBlue;" class="choice">Следващ въпрос</button>
-<!-- <button type="submit" formaction="{% url 'polls:index' %}" formmethod='get'>Another Category</button> -->
+			<!-- <a href="{% url 'polls:detail' question.id %}" style="color:MidnightBlue;">Vote again?</a> -->
+			<!-- <a href="{% url 'polls:random' question.category.id%}" style="color:MidnightBlue;">Next</a> -->
+			<button type='submit' name='question' value="{{ question.id }}" style="color: MidnightBlue; border-color: MidnightBlue;" class="choice">Следващ въпрос</button>
+		</div>
+	</div>
 </form>
 {% endblock %}

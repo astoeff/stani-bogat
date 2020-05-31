@@ -4,17 +4,22 @@
 <link rel="stylesheet" type="text/css" href="{% static 'polls/style.css' %}">
 <form style="background-color: Wheat" action="{% url 'polls:vote' question.id %}" method="post">
 	{% csrf_token %}
+	<div id="bottom-padded">
+		<h1 style="color:MidnightBlue; font-size: 40px;" align="center">{{ question.question_text }}</h1>
 
-	<h1 style="color:MidnightBlue; font-size: 40px;" align="center">{{ question.question_text }}</h1>
-
-	<div id="question-data">
-		{% if error_message %}<p style="color: red; font-size: 20px;"><strong>{{ error_message }}</strong></p>{% endif %}
-		{% for choice in question.choice_set.all %}
-		    <input type="radio" name="choice" id="choice{{ forloop.counter }}" value="{{ choice.id }}" class="choice-field">
-		    <label for="choice{{ forloop.counter }}" class="choice-field">{{ choice.choice_text }}</label><br>
-		{% endfor %}
-		<div id="choice-button">
-			<input type="submit" value="Избор" style='color: MidnightBlue;' class="choice">
+		<div id="question-data">
+			{% if error_message %}<p style="color: red; font-size: 20px;"><strong>{{ error_message }}</strong></p>{% endif %}
+			{% for choice in question.choice_set.all %}
+				<div class="container">
+					<label class="container">{{ choice.choice_text }}
+				  		<input type="radio" name="choice" id="choice{{ forloop.counter }}" value="{{ choice.id }}" class="choice-field">
+				  		<span class="checkmark"></span>
+					</label>
+				</div>
+			{% endfor %}
+			<div id="choice-button">
+				<input type="submit" value="Избор" style='color: MidnightBlue; background-color: #c2dde6; border-color: MidnightBlue;' class="choice">
+			</div>
 		</div>
 	</div>
 </form>

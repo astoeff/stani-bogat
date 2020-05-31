@@ -3,27 +3,33 @@
 {% load static %}
 <link rel="stylesheet" type="text/css" href="{% static 'polls/style.css' %}">
 <form style="background-color: Wheat" action="{% url 'polls:game_vote' question.id %}" method="post" name='position' value="{{ position }}">
-{% csrf_token %}
-<h1 style="color:MidnightBlue; font-size: 40px;" align="center">{{ question.question_text }}</h1>
-<div id="question-data">
-	<h2 style="color:MidnightBlue; font-size: 30px;">Въпрос {{ position }}</h2>
-	<h2 style="color:MidnightBlue; font-size: 30px;">{{ price }}лв</h2>
+	{% csrf_token %}
+	<div id="bottom-padded">
+		<h1 style="color:MidnightBlue; font-size: 40px;" align="center">{{ question.question_text }}</h1>
+		<div id="question-data">
+			<h2 style="color:MidnightBlue; font-size: 30px;">Въпрос {{ position }}</h2>
+			<h2 style="color:MidnightBlue; font-size: 30px;">{{ price }}лв</h2>
 
-	{% if error_message %}<p style="color: red; font-size: 20px;"><strong>{{ error_message }}</strong></p>{% endif %}
-	{% for choice in question.choice_set.all %}
-	    <input type="radio" name="choice" id="choice{{ forloop.counter }}" value="{{ choice.id }}" class="choice-field">
-	    <label for="choice{{ forloop.counter }}" class="choice-field">{{ choice.choice_text }}</label><br>
-	{% endfor %}
-	<!-- <input type="submit" style='color: blue;' name='position' value="{{ position }}"> -->
-	<div id="divs-in-left-aligned-horizontally">
-		<div id="choice-button">
-			<button type="submit" style='color: MidnightBlue;' name='position' value="{{ position }}" class="choice">Избор</button>
-		</div> 
+			{% if error_message %}<p style="color: red; font-size: 20px;"><strong>{{ error_message }}</strong></p>{% endif %}
+			{% for choice in question.choice_set.all %}
+				<div class="container">
+					<label class="container">{{ choice.choice_text }}
+				  		<input type="radio" name="choice" id="choice{{ forloop.counter }}" value="{{ choice.id }}" class="choice-field">
+				  		<span class="checkmark"></span>
+					</label>
+				</div>
+			{% endfor %}
+			<!-- <input type="submit" style='color: blue;' name='position' value="{{ position }}"> -->
+			<div id="divs-in-left-aligned-horizontally">
+				<div id="choice-button">
+					<button type="submit" style='color: MidnightBlue; background-color: #c2dde6; border-color: MidnightBlue;' name='position' value="{{ position }}" class="choice">Избор</button>
+				</div> 
 
-		<div id='quit'>
-			<button type="submit" style='color: red;' formaction="{% url 'polls:take_money' %}" formmethod="post" name='price' value="{{ question.category.price }}" class="choice">Отказвам се</button>
+				<div id='quit'>
+					<button type="submit" style='color: #b11a21; background-color: #c2dde6; border-color: #b11a21;' formaction="{% url 'polls:take_money' %}" formmethod="post" name='price' value="{{ question.category.price }}" class="choice">Отказвам се</button>
+				</div>
+			</div>
 		</div>
 	</div>
-</div>
 </form>
 {% endblock %}

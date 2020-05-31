@@ -1,7 +1,12 @@
 {% extends 'polls/base.html' %}
 {% block content %}
 <form style="background-color: Wheat">
-{% csrf_token %}
-<h1 align="center" style="color: green; font-size: 50px;">Вие завършихте своята игра с {{ price }}лв.</h1>
-<button type="submit" formaction="{% url 'polls:game' %}" formmethod='post' name='category_position' value='0' style="color: MidnightBlue;" class="choice">Нова игра</button>
+	{% csrf_token %}
+	<div id="bottom-padded">
+		<h1 align="center" style="color: green; font-size: 50px;">Вие завършихте своята игра с {{ price }}лв.</h1>
+		<div style="padding-left: 20px;">
+			<button type="submit" formaction="{% url 'polls:game' %}" formmethod='post' name='category_position' value='0' style="color: MidnightBlue; background-color: #c2dde6; border-color: MidnightBlue;" class="choice">Нова игра</button>
+		</div>
+	</div>
+</form>
 {% endblock %}

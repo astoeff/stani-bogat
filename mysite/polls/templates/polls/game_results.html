@@ -5,26 +5,30 @@
 <link rel="stylesheet" type="text/css" href="{% static 'polls/style.css' %}">
 <form action="{% url 'polls:random' question.category.id %}" method="post" style="background-color:Wheat;">
 {% csrf_token %}
-{% if choice.is_correct %}
-	<h1 style="color:green; font-size: 50px;" align='center'>ВЕРЕН ОТГОВОР</h1>
-	<h2 style="color:MidnightBlue; font-size: 30px;" align="center">СПЕЧЕЛИХТЕ {{ question.category }}лв.</h2>
-	<!-- <button type='submit' name='question' value="{{ question.id }}">Next Question</button> -->
-	<div id="divs-in-center-aligned-horizontally">
-		<button type="submit" formaction="{% url 'polls:game' %}" formmethod='post' name='category_position' value="{{ position }}" class="choice" style="color: MidnightBlue;">Следващ въпрос</button>
-{% else %}
-	<h2 style="color:red; font-size: 50px;" align='center'>ГРЕШЕН ОТГОВОР</h2>
-	<h2 style="color:red; font-size: 30px;" align='center'>Останахте с {{ question.category.money_for_loss }}лв.</h2>
-{% endif %}
-{% if choice.is_correct%}
-	<div style="padding-left: 200px;">
-{% else %}
-	<div style="padding-left: 20px;">
-{% endif %}
-	<button type="submit" formaction="{% url 'polls:game' %}" formmethod='post' name='category_position' value='0' style="color: MidnightBlue;" class="choice">Нова игра</button>
-</div>
-{% if choice.is_correct %}
+<div id="bottom-padded">
+	<div id="question-data">
+		{% if choice.is_correct %}
+			<h1 style="color:green; font-size: 50px;" align='center'>ВЕРЕН ОТГОВОР</h1>
+			<h2 style="color:MidnightBlue; font-size: 30px;" align="center">СПЕЧЕЛИХТЕ {{ question.category }}лв.</h2>
+			<!-- <button type='submit' name='question' value="{{ question.id }}">Next Question</button> -->
+			<div id="divs-in-center-aligned-horizontally">
+				<button type="submit" formaction="{% url 'polls:game' %}" formmethod='post' name='category_position' value="{{ position }}" class="choice" style="color: MidnightBlue; background-color: #c2dde6; border-color: MidnightBlue;">Следващ въпрос</button>
+		{% else %}
+			<h2 style="color:red; font-size: 50px;" align='center'>ГРЕШЕН ОТГОВОР</h2>
+			<h2 style="color:red; font-size: 40px;" align='center'>Останахте с {{ question.category.money_for_loss }}лв.</h2>
+		{% endif %}
+		{% if choice.is_correct%}
+			<div style="padding-left: 200px;">
+		{% else %}
+			<div style="padding-left: 20px;">
+		{% endif %}
+			<button type="submit" formaction="{% url 'polls:game' %}" formmethod='post' name='category_position' value='0' style="color: MidnightBlue; background-color: #c2dde6; border-color: MidnightBlue;" class="choice">Нова игра</button>
+		</div>
+		{% if choice.is_correct %}
+			</div>
+		{% endif %}
 	</div>
-{% endif %}
+</div>
 
 </form>
 {% endblock %}
