@@ -1,13 +1,9 @@
 li a {
-    color: white;
+  color: white;
 }
 
-/*body {
-    background: white url("images/stani-bogat-0104-x264-277267-800x446.jpg") no-repeat;
-}*/
-
 body {
- background-image: url("images/stani-bogat-0104-x264-277267-800x446.jpg");
+ background-image: url("images/background.jpg");
  background-color: #cccccc;
  height: 100%;
 
@@ -18,5 +14,17 @@ body {
   opacity: 0.85;
 }
 
-form { margin: 0 auto; }
+#form1 {
+  padding-left: 50px;
+}
 
+#form2 {
+  margin-top: 20px;
+  padding-left: 50px;
+}
+
+button.index {
+  width: 20em;
+  height: 2em;
+  font-size: 20px;
+}

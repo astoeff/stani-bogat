@@ -8,7 +8,11 @@ from django.db.models import Q
 import random
 
 
-class IndexView(generic.ListView):
+def index(request):
+    return render(request, 'polls/index.html')
+
+
+class ListCategories(generic.ListView):
     # template_name = 'polls/index.html'
     # context_object_name = 'latest_question_list'
 
@@ -21,7 +25,7 @@ class IndexView(generic.ListView):
     #         pub_date__lte=timezone.now()
     #     ).order_by('-pub_date')[:5]
 
-    template_name = 'polls/index.html'
+    template_name = 'polls/list_categories.html'
     context_object_name = 'categories_list'
 
     def get_queryset(self):

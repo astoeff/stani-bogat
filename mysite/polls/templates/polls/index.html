@@ -1,23 +1,20 @@
-{% extends 'polls/base.html' %}
-{% block content %}
 {% load static %}
-
 <link rel="stylesheet" type="text/css" href="{% static 'polls/style.css' %}">
-<form style="background-color: Wheat;" method='post'>
-{% csrf_token %}
-<h1 style="color:MidnightBlue;" align="center">СТАНИ БОГАТ</h1>
-<h2 style="color:  #00008B">КАТЕГОРИИ</h2>
-{% if categories_list %}
-    <ul>
-    {% for category in categories_list %}
-        <li><a href="{% url 'polls:random' category.id %}" style="color: #00008B">{{ category }}</a></li>
-    {% endfor %}
-    </ul>
-    <button type="submit" formaction="{% url 'polls:game' %}" formmethod='post' name='category_position' value='0' style='color: MidnightBlue;'>Започни игра</button>
-{% else %}
-    <p>No categories are available.</p>
-{% endif %}
-</form>
-{% endblock %}
+<body>
+	<div style="background-color: Wheat;" id="container">
+		<h1 style="color:MidnightBlue;" align="center">СТАНИ БОГАТ</h1>
+		<div id="form1">
+			<form>
+				{% csrf_token %}
+				<button type="submit" class="index" formaction="{% url 'polls:game' %}" formmethod='post' name='category_position' value='0' style='color: MidnightBlue;'>Започни игра</button>
+			</form>
+		</div>
 
+		<div id="form2">
+			<form>
+				<button type="submit" class="index" formaction="{% url 'polls:list-categories' %}" formmethod='get' style='color: MidnightBlue;'>Категории</button>
+			</form>
+		</div>
+	</div>
+</body>
 
