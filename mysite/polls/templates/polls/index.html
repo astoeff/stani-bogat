@@ -1,18 +1,18 @@
 {% load static %}
 <link rel="stylesheet" type="text/css" href="{% static 'polls/style.css' %}">
 <body>
-	<div style="background-color: Wheat;" id="container">
-		<h1 style="color:MidnightBlue; font-size: 50px;" align="center">СТАНИ БОГАТ</h1>
+	<div style="background-color: Wheat;" id="bottom-padded">
+		<h1 style="color: MidnightBlue; font-size: 50px;" align="center">СТАНИ БОГАТ</h1>
 		<div id="form1">
 			<form>
 				{% csrf_token %}
-				<button type="submit" class="index" formaction="{% url 'polls:game' %}" formmethod='post' name='category_position' value='0' style='color: MidnightBlue;'>Започни игра</button>
+				<button type="submit" class="index" formaction="{% url 'polls:game' %}" formmethod='post' name='category_position' value='0' style='color: MidnightBlue; border-color: MidnightBlue; background-color: #f2d53c; border-width: 3px; '><strong>Започни игра</strong></button>
 			</form>
 		</div>
 
 		<div id="form2">
 			<form>
-				<button type="submit" class="index" formaction="{% url 'polls:list-categories' %}" formmethod='get' style='color: MidnightBlue;'>Категории</button>
+				<button type="submit" class="index" formaction="{% url 'polls:list-categories' %}" formmethod='get' style='color: MidnightBlue; border-color: MidnightBlue; background-color: #f2d53c; border-width: 3px;'><strong>Категории</strong></button>
 			</form>
 		</div>
 	</div>
