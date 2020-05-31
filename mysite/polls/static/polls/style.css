@@ -37,23 +37,67 @@ button.list-category {
 
 #categories-by-5s {
   padding-left: 20px;
-  float: left;
 }
 
 #button-holder {
   padding-bottom: 10px;
 }
 
-#all-categories {
-  display: table;
-}
-
 #categories-text {
   padding-left: 20px; 
+  font-size: 30px;
 }
 
 input.home-button {
   width: 5em;
   height: 2em;
   font-size: 20px;
+}
+
+label.choice-field {
+  font-size: 30px;
+}
+
+#choice-button {
+  padding-top: 20px;
+}
+
+input.choice {
+  width: 8em;
+  height: 2.5em;
+  font-size: 20px;
+}
+
+button.choice {
+  width: 8em;
+  height: 2.5em;
+  font-size: 20px;
+}
+
+input.choice-field {
+  width: 1.5em;
+  height: 1.5em;
+}
+
+#quit {
+ padding-left: 80px;
+ padding-top: 20px;
+}
+
+#question-data {
+  padding-left: 30px;
+}
+
+#divs-in-left-aligned-horizontally {
+  width: 100%;
+  margin: 0 auto;
+  display: flex;
+  justify-content: left;
+}
+
+#divs-in-center-aligned-horizontally {
+  width: 100%;
+  margin: 0 auto;
+  display: flex;
+  justify-content: center;
 }

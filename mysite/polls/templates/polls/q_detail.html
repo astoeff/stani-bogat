@@ -3,15 +3,19 @@
 {% load static %}
 <link rel="stylesheet" type="text/css" href="{% static 'polls/style.css' %}">
 <form style="background-color: Wheat" action="{% url 'polls:vote' question.id %}" method="post">
-{% csrf_token %}
+	{% csrf_token %}
 
-<h1 style="color:MidnightBlue;" align="center">{{ question.question_text }}</h1>
+	<h1 style="color:MidnightBlue; font-size: 40px;" align="center">{{ question.question_text }}</h1>
 
-{% if error_message %}<p style="color: red;"><strong>{{ error_message }}</strong></p>{% endif %}
-{% for choice in question.choice_set.all %}
-    <input type="radio" name="choice" id="choice{{ forloop.counter }}" value="{{ choice.id }}">
-    <label for="choice{{ forloop.counter }}">{{ choice.choice_text }}</label><br>
-{% endfor %}
-<input type="submit" value="Избор" style='color: MidnightBlue;'>
+	<div id="question-data">
+		{% if error_message %}<p style="color: red; font-size: 20px;"><strong>{{ error_message }}</strong></p>{% endif %}
+		{% for choice in question.choice_set.all %}
+		    <input type="radio" name="choice" id="choice{{ forloop.counter }}" value="{{ choice.id }}" class="choice-field">
+		    <label for="choice{{ forloop.counter }}" class="choice-field">{{ choice.choice_text }}</label><br>
+		{% endfor %}
+		<div id="choice-button">
+			<input type="submit" value="Избор" style='color: MidnightBlue;' class="choice">
+		</div>
+	</div>
 </form>
 {% endblock %}
