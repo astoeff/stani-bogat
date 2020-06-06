@@ -4,6 +4,14 @@ from django.db import models
 from django.utils import timezone
 
 
+class Episode(models.Model):
+    number = models.IntegerField(default=0)
+    link = models.CharField(max_length=100, null=True)
+
+    def __str__(self):
+        return f'Епизод {self.number}'
+
+
 class Category(models.Model):
     price = models.IntegerField(default=100, unique=True)
     money_for_loss = models.IntegerField(default=0)
@@ -20,6 +28,7 @@ class Question(models.Model):
     category = models.ForeignKey(Category, on_delete=models.CASCADE, null=True)
     question_text = models.CharField(max_length=200)
     pub_date = models.DateTimeField('date published')
+    episode = models.ForeignKey(Episode, on_delete=models.CASCADE, null=True)
 
     @property
     def votes(self):

@@ -3,9 +3,10 @@ from django.shortcuts import get_object_or_404, render
 from django.urls import reverse
 from django.views import generic
 from django.utils import timezone
-from .models import Choice, Question, Category
+from .models import Choice, Question, Category, Episode
 from django.db.models import Q
 import random
+from django.views.decorators.clickjacking import xframe_options_exempt
 
 
 def index(request):
@@ -34,6 +35,33 @@ class ListCategories(generic.ListView):
         published in the future).
         """
         return Category.objects.all().order_by('price')
+
+
+def list_episodes(request):
+    episodes = Episode.objects.all().order_by('number')
+    return render(request, 'polls/list_episodes.html', {'episodes_list': episodes})
+# class ListEpisodes(generic.ListView):
+#     # template_name = 'polls/index.html'
+#     # context_object_name = 'latest_question_list'
+
+#     # def get_queryset(self):
+#     #     """
+#     #     Return the last five published questions (not including those set to be
+#     #     published in the future).
+#     #     """
+#     #     return Question.objects.filter(
+#     #         pub_date__lte=timezone.now()
+#     #     ).order_by('-pub_date')[:5]
+
+#     template_name = 'polls/list_episodes.html'
+#     context_object_name = 'episodes_list'
+
+#     def get_queryset(self):
+#         """
+#         Return the last five published questions (not including those set to be
+#         published in the future).
+#         """
+#         return Episode.objects.all().order_by('number')
 
 
 # class QuestionsView(generic.ListView):

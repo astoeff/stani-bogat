@@ -14,7 +14,8 @@ urlpatterns = [
     path('<int:question_id>/<int:choice_id>/results/', views.result, name='results'),
     path('game/', views.game, name='game'),
     path('game/vote/<int:question_id>/', views.game_vote, name='game_vote'),
-    path('game/take-money', views.take_money, name='take_money')
+    path('game/take-money', views.take_money, name='take_money'),
+    path('episodes', views.list_episodes, name='list-episodes')
 
 
     # path('', views.home, name='home'),

@@ -1,0 +1,30 @@
+{% extends 'polls/base.html' %}
+{% block content %}
+{% load static %}
+
+<link rel="stylesheet" type="text/css" href="{% static 'polls/style.css' %}">
+<form style="background-color: Wheat;" method='post'>
+{% csrf_token %}
+	<div id="bottom-padded">
+		<h1 style="color:MidnightBlue; font-size: 50px;" align="center">СТАНИ БОГАТ</h1>
+		<h2 style="color:MidnightBlue;" id="categories-text" align="center">ЕПИЗОДИ</h2>
+		{% if episodes_list %}
+			<div id="divs-in-center-aligned-horizontally">
+			    <div id="categories-by-5s">
+			    {% for episode in episodes_list %}
+			    	{% if forloop.counter == 6 or forloop.counter == 11 or forloop.counter == 16 %}
+			    		</div>
+			    		<div id="categories-by-5s">
+			    	{% endif %}
+			    	<div id="button-holder">
+			    		<iframe width="420" height="345" src={{ episode.link }}></iframe>
+			        </div>
+			    {% endfor %}
+				</div>
+			</div>
+		{% else %}
+		    <p>No categories are available.</p>
+		{% endif %}
+	</div>
+</form>
+{% endblock %}
