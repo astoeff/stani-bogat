@@ -12,7 +12,7 @@
 			<div id="divs-in-center-aligned-horizontally">
 			    <div id="categories-by-5s">
 			    {% for episode in episodes_list %}
-			    	{% if forloop.counter == 6 or forloop.counter == 11 or forloop.counter == 16 %}
+			    	{% if forloop.counter|divisibleby:4 %}
 			    		</div>
 			    		<div id="categories-by-5s">
 			    	{% endif %}
