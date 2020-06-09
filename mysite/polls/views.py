@@ -7,6 +7,7 @@ from .models import Choice, Question, Category, Episode
 from django.db.models import Q
 import random
 from django.views.decorators.clickjacking import xframe_options_exempt
+from django.core.paginator import Paginator
 
 
 def index(request):
@@ -35,6 +36,14 @@ class ListCategories(generic.ListView):
         published in the future).
         """
         return Category.objects.all().order_by('price')
+
+
+class ListEpisodes(generic.ListView):
+    model = Episode
+    template_name = 'polls/list_episodes.html'  # Default: <app_label>/<model_name>_list.html
+    context_object_name = 'episodes'  # Default: object_list
+    paginate_by = 3
+    queryset = Episode.objects.all()  # Default: Model.objects.all()
 
 
 def list_episodes(request):
