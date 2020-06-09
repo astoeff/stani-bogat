@@ -1,14 +1,15 @@
 {% extends 'polls/base.html' %}
 {% block content %}
 {% load static %}
+{% load i18n %}
 
 <link rel="stylesheet" type="text/css" href="{% static 'polls/style.css' %}">
 <form style="background-color: Wheat;" method='post'>
 {% csrf_token %}
 	<div id="bottom-padded">
 		<h1 style="color:MidnightBlue; font-size: 50px;" align="center">СТАНИ БОГАТ</h1>
-		{% if episodes %}
-		<div id="button-holder">
+
+		    <div id="button-holder">
 				    
 			    
 				<table class="table table-bordered">
@@ -21,7 +22,7 @@
 				  </thead>
 				  <tbody>
 				  	<tr>
-					    {% for episode in episodes %}
+					    {% for episode in object_list %}
 					    		<td style="padding-left: 60px;">
 						    		<h2 style="color: MidnightBlue; padding-left: 110px;">Епизод {{ episode.number }}</h2>
 						    		<iframe width="340" height="200" src={{ episode.link }} frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
@@ -33,33 +34,36 @@
 				  
 				  </tbody>
 				</table>
-				</div>
-		{% else %}
-		    <p>Няма епизоди за показване</p>
-		{% endif %}
+			</div>
+		
 	</div>
 
 	<div align="center">
 		{% if is_paginated %}
 			  <div class="pagination">
 			    {% if page_obj.has_previous %}
-			      <a href="?page={{ page_obj.previous_page_number }}">&laquo;</a>
-			    {% else %}
-			      <a class="disabled"><span>&laquo;</span></a>
+			        <a href="?{{ page_obj.previous_page_number.querystring }}" class="prev">&lsaquo; {% trans "предишна" %}</a>
 			    {% endif %}
-			    {% for i in paginator.page_range %}
-			      {% if page_obj.number == i %}
-			        <a class="active"><span>{{ i }} <span class="sr-only"></span></span></a>
-			      {% else %}
-			        <a href="?page={{ i }}">{{ i }}</a>
-			      {% endif %}
+			    {% for page in page_obj.pages %}
+			        {% if page %}
+			            {% ifequal page page_obj.number %}
+			            	{% if page_obj.has_previous %}
+			            		<a><span>...</span></a>
+			            	{% endif %}
+			                <a class='active'><span class="current page">{{ page }}</span></a>
+			                {% if page_obj.has_next %}
+			        			<a><span>...</span></a>
+			   				 {% endif %}
+			                
+			            {% else %}
+			                <a href="?{{ page.querystring }}" class="page">{{ page }}</a>
+			            {% endifequal %}
+			        {% endif %}
 			    {% endfor %}
 			    {% if page_obj.has_next %}
-			      <a href="?page={{ page_obj.next_page_number }}">&raquo;</a>
-			    {% else %}
-			      <a class="disabled"><span>&raquo;</span></a>
+			        <a href="?{{ page_obj.next_page_number.querystring }}" class="next">{% trans "следваща" %} &rsaquo;</a>
 			    {% endif %}
-			  </div>
+			</div>
 		{% endif %}
 	</div>
 
