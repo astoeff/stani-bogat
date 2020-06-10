@@ -42,17 +42,17 @@
 		{% if is_paginated %}
 			  <div class="pagination">
 			    {% if page_obj.has_previous %}
-			        <a href="?{{ page_obj.previous_page_number.querystring }}" class="prev">&lsaquo; {% trans "предишна" %}</a>
+			        <a href="?{{ page_obj.previous_page_number.querystring }}" class="page">&lsaquo; {% trans "предишна" %}</a>
 			    {% endif %}
 			    {% for page in page_obj.pages %}
 			        {% if page %}
 			            {% ifequal page page_obj.number %}
 			            	{% if page_obj.has_previous %}
-			            		<a><span>...</span></a>
+			            		<a class='non-page'><span>...</span></a>
 			            	{% endif %}
 			                <a class='active'><span class="current page">{{ page }}</span></a>
 			                {% if page_obj.has_next %}
-			        			<a><span>...</span></a>
+			        			<a class='non-page'><span>...</span></a>
 			   				 {% endif %}
 			                
 			            {% else %}
@@ -61,7 +61,7 @@
 			        {% endif %}
 			    {% endfor %}
 			    {% if page_obj.has_next %}
-			        <a href="?{{ page_obj.next_page_number.querystring }}" class="next">{% trans "следваща" %} &rsaquo;</a>
+			        <a href="?{{ page_obj.next_page_number.querystring }}" class="page">{% trans "следваща" %} &rsaquo;</a>
 			    {% endif %}
 			</div>
 		{% endif %}
