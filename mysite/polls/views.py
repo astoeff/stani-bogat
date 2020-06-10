@@ -71,7 +71,7 @@ class ListEpisodes(PaginationMixin, generic.ListView):
     # template_name = 'polls/list_episodes.html'  # Default: <app_label>/<model_name>_list.html
     # context_object_name = 'episodes'  # Default: object_list
     # paginate_by = 3
-    queryset = Episode.objects.all()  # Default: Model.objects.all()
+    queryset = Episode.objects.all().order_by('number')  # Default: Model.objects.all()
     paginate_by = 3
     template_name = 'polls/list_episodes.html'
 

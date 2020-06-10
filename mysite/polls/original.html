@@ -1,0 +1,90 @@
+{% extends 'polls/base.html' %}
+{% block content %}
+{% load static %}
+{% load i18n %}
+
+<link rel="stylesheet" type="text/css" href="{% static 'polls/style.css' %}">
+<form style="background-color: Wheat;" method='post'>
+{% csrf_token %}
+	<div id="bottom-padded">
+		<h1 style="color:MidnightBlue; font-size: 50px;" align="center">СТАНИ БОГАТ</h1>
+
+		    <div id="button-holder">
+				    
+			    
+				<table class="table table-bordered">
+				  <thead>
+				    <tr>
+				      <th></th>
+				      <th></th>
+				      <th></th>
+				    </tr>
+				  </thead>
+				  <tbody>
+				  	<tr>
+					    {% for episode in object_list %}
+					    		<td style="padding-left: 60px;">
+						    		<h2 style="color: MidnightBlue; padding-left: 110px;">Епизод {{ episode.number }}</h2>
+						    		<iframe width="340" height="200" src={{ episode.link }} frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+					    		</td>
+					    {% endfor %}
+				      
+				        
+				    </tr>
+				  
+				  </tbody>
+				</table>
+			</div>
+		
+	</div>
+
+	<div align="center">
+		{% if is_paginated %}
+			  <div class="pagination">
+			    {% if page_obj.has_previous %}
+			        <a href="?{{ page_obj.previous_page_number.querystring }}" class="page">&lsaquo; {% trans "предишна" %}</a>
+			    {% endif %}
+			    {% if page_obj.pages|length == 5 %}
+			    {% for page in page_obj.pages %}
+			    	<!-- {% if forloop.counter == 2 %}
+			    		{% if page_obj.pages|length >= 6 %}
+			    			{% if page_obj.has_previous %}
+			            		<a class='non-page'><span>...</span></a>
+			            	{% endif %}
+			            {% endif %}
+			     	{% endif %}
+
+			     	{% if forloop.counter == 6 and page_obj.pages|length >= 6 %}
+			    		
+			    			{% if page_obj.has_previous %}
+			            		<a class='non-page'><span>...</span></a>
+			            	{% endif %}
+			            
+			     	{% endif %}
+
+			     	<!-- {% if forloop.counter == 4 and page_obj.pages|length == 5 %}
+			     		
+			            		<a class='non-page'><span>...</span></a>
+			            
+			        {% endif %} --> -->
+
+			        {% if page %}
+			            {% ifequal page page_obj.number %}
+			            	
+			                <a class='active'><span class="current page">{{ page }}</span></a>
+			                
+			                
+			            {% else %}
+			                <a href="?{{ page.querystring }}" class="page">{{ page }}</a>
+			            {% endifequal %}
+			        {% endif %}
+			    {% endfor %}
+			    {% if page_obj.has_next %}
+			        <a href="?{{ page_obj.next_page_number.querystring }}" class="page">{% trans "следваща" %} &rsaquo;</a>
+			    {% endif %}
+			</div>
+		{% endif %}
+	</div>
+
+</form>
+{% endblock %}

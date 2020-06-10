@@ -44,42 +44,66 @@
 			    {% if page_obj.has_previous %}
 			        <a href="?{{ page_obj.previous_page_number.querystring }}" class="page">&lsaquo; {% trans "предишна" %}</a>
 			    {% endif %}
-			    {% for page in page_obj.pages %}
-			    	{% if forloop.counter == 2 %}
-			    		{% if page_obj.pages|length >= 6 %}
-			    			{% if page_obj.has_previous %}
-			            		<a class='non-page'><span>...</span></a>
-			            	{% endif %}
-			            {% endif %}
-			     	{% endif %}
 
-			     	{% if forloop.counter == 6 and page_obj.pages|length >= 6 %}
-			    		
-			    			{% if page_obj.has_previous %}
-			            		<a class='non-page'><span>...</span></a>
-			            	{% endif %}
-			            
-			     	{% endif %}
+			    {% if not page_obj.has_next %}
+			    	{% for page in page_obj.pages %}
+			
+				    	{% if forloop.counter != 1 and forloop.counter != 3 %}
+					        {% if page %}
+					            {% ifequal page page_obj.number %}
+					            	
+					                <a class='active'><span class="current page">{{ page }}</span></a>
+					                
+					                
+					            {% else %}
+					                <a href="?{{ page.querystring }}" class="page">{{ page }}</a>
+					            {% endifequal %}
+					        {% endif %}
+					    {% endif %}
+					    {% endfor %}
+				{% endif %}
 
-			     	{% if forloop.counter == 4 and page_obj.pages|length == 5 %}
-			     		
-			            		<a class='non-page'><span>...</span></a>
-			            
-			        {% endif %}
-			        {% if page %}
-			            {% ifequal page page_obj.number %}
-			            	
-			                <a class='active'><span class="current page">{{ page }}</span></a>
-			                
-			                
-			            {% else %}
-			                <a href="?{{ page.querystring }}" class="page">{{ page }}</a>
-			            {% endifequal %}
-			        {% endif %}
-			    {% endfor %}
+			    {% if page_obj.pages|length == 5 %}
+				    {% for page in page_obj.pages %}
+			
+				    	{% if forloop.counter != 5 %}
+					        {% if page %}
+					            {% ifequal page page_obj.number %}
+					            	
+					                <a class='active'><span class="current page">{{ page }}</span></a>
+					                
+					                
+					            {% else %}
+					                <a href="?{{ page.querystring }}" class="page">{{ page }}</a>
+					            {% endifequal %}
+					        {% endif %}
+					    {% endif %}
+				    {% endfor %}
+				{% endif %}
+
+				{% if page_obj.pages|length >= 6 and page_obj.has_next %}
+				    {% for page in page_obj.pages %}
+			
+				    	{% if forloop.counter != 1 and forloop.counter != page_obj.pages|length %}
+					        {% if page %}
+					            {% ifequal page page_obj.number %}
+					            	
+					                <a class='active'><span class="current page">{{ page }}</span></a>
+					                
+					                
+					            {% else %}
+					                <a href="?{{ page.querystring }}" class="page">{{ page }}</a>
+					            {% endifequal %}
+					        {% endif %}
+					    {% endif %}
+
+					   
+				    {% endfor %}
+				{% endif %}
 			    {% if page_obj.has_next %}
 			        <a href="?{{ page_obj.next_page_number.querystring }}" class="page">{% trans "следваща" %} &rsaquo;</a>
 			    {% endif %}
+			  
 			</div>
 		{% endif %}
 	</div>
