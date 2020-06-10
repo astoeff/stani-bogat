@@ -12,23 +12,23 @@
 		    <div id="button-holder">
 				    
 			    
-				<table class="table table-bordered">
+				<table class="table table-bordered" align="center">
 				  <thead>
 				    <tr>
-				      <th></th>
-				      <th></th>
-				      <th></th>
+				      {% for episode in object_list %}
+				      <th style="color: MidnightBlue; font-size: 30px;">Епизод {{ episode.number }}</th>
+				      {% endfor %}				      
 				    </tr>
 				  </thead>
 				  <tbody>
 				  	<tr>
+				  		<div align="center">
 					    {% for episode in object_list %}
-					    		<td style="padding-left: 60px;">
-						    		<h2 style="color: MidnightBlue; padding-left: 110px;">Епизод {{ episode.number }}</h2>
-						    		<iframe width="340" height="200" src={{ episode.link }} frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+					    		<td>						    		
+						    		<iframe width="300" height="200" src={{ episode.link }} frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
 					    		</td>
 					    {% endfor %}
-				      
+				      	</div>
 				        
 				    </tr>
 				  
