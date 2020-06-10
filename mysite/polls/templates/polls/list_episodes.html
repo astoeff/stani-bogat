@@ -43,12 +43,14 @@
 			  <div class="pagination">
 			    {% if page_obj.has_previous %}
 			        <a href="?{{ page_obj.previous_page_number.querystring }}" class="page">&lsaquo; {% trans "предишна" %}</a>
+			    {% else %}
+			    	<a class="page">&lsaquo; {% trans "предишна" %}</a>
 			    {% endif %}
 
 			    
 
 
-			    {% if not page_obj.has_next or page_obj.number == 6%}
+			    {% if not page_obj.has_next or page_obj.number == 15 %}
 			    	{% for page in page_obj.pages %}
 			
 				    	{% if forloop.counter != 1 and forloop.counter != 3 %}
@@ -84,7 +86,7 @@
 				    {% endfor %}
 				{% endif %}
 
-				{% if page_obj.pages|length >= 6 and page_obj.has_next and page_obj.number != 6 %}
+				{% if page_obj.pages|length >= 6 and page_obj.has_next and page_obj.number != 15 %}
 				    {% for page in page_obj.pages %}
 			
 				    	{% if forloop.counter != 1 and forloop.counter != page_obj.pages|length %}
@@ -105,6 +107,8 @@
 				{% endif %}
 			    {% if page_obj.has_next %}
 			        <a href="?{{ page_obj.next_page_number.querystring }}" class="page">{% trans "следваща" %} &rsaquo;</a>
+			    {% else %}
+			    	<a class="page">{% trans "следваща" %} &rsaquo;</a>
 			    {% endif %}
 			  
 			</div>
