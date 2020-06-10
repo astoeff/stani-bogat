@@ -6,6 +6,17 @@
 	{% csrf_token %}
 	<div id="bottom-padded">
 		<h1 style="color:MidnightBlue; font-size: 40px;" align="center">{{ question.question_text }}</h1>
+		<div class="joker-container" style="padding-bottom: 40px;">
+			<div id="quit">
+				<button class='joker'>50:50</button>
+			</div>
+			<div id="quit">
+				<button class='joker'>Публика</button>
+			</div>
+			<div id="quit">
+				<button class='joker'>Телефонно обаждане</button>
+			</div>
+		</div>
 
 		<div id="question-data">
 			{% if error_message %}<p style="color: red; font-size: 20px;"><strong>{{ error_message }}</strong></p>{% endif %}

@@ -225,3 +225,23 @@ input[class="radio"] {
 table {
   border-spacing: 1em .5em;
 }
+
+.joker-container {
+  display: flex;
+  justify-content: left;
+  position: relative;
+}
+
+.h2 {
+  margin: 0;
+    display: inline-block;
+}
+
+.joker {
+  background-color: MidnightBlue;
+  color: #f2d53c;
+ width: 8em;
+  height: 2.5em;
+  font-size: 20px;
+}
+

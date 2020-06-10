@@ -8,7 +8,18 @@
 		<h1 style="color:MidnightBlue; font-size: 40px;" align="center">{{ question.question_text }}</h1>
 		<div id="question-data">
 			<h2 style="color:MidnightBlue; font-size: 30px;">Въпрос {{ position }}</h2>
-			<h2 style="color:MidnightBlue; font-size: 30px;">{{ price }}лв</h2>
+			<div class="joker-container">
+				<h2 style="color:MidnightBlue; font-size: 30px;">{{ price }}лв</h2>
+				<div id="quit">
+					<button class='joker'>50:50</button>
+				</div>
+				<div id="quit">
+					<button class='joker'>Публика</button>
+				</div>
+				<div id="quit">
+					<button class='joker'>Телефонно обаждане</button>
+				</div>
+			</div>
 
 			{% if error_message %}<p style="color: red; font-size: 20px;"><strong>{{ error_message }}</strong></p>{% endif %}
 			{% for choice in question.choice_set.all %}
