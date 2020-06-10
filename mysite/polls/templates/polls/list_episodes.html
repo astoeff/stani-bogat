@@ -45,15 +45,32 @@
 			        <a href="?{{ page_obj.previous_page_number.querystring }}" class="page">&lsaquo; {% trans "предишна" %}</a>
 			    {% endif %}
 			    {% for page in page_obj.pages %}
-			        {% if page %}
-			            {% ifequal page page_obj.number %}
-			            	{% if page_obj.has_previous %}
+			    	{% if forloop.counter == 2 %}
+			    		{% if page_obj.pages|length >= 6 %}
+			    			{% if page_obj.has_previous %}
 			            		<a class='non-page'><span>...</span></a>
 			            	{% endif %}
+			            {% endif %}
+			     	{% endif %}
+
+			     	{% if forloop.counter == 6 and page_obj.pages|length >= 6 %}
+			    		
+			    			{% if page_obj.has_previous %}
+			            		<a class='non-page'><span>...</span></a>
+			            	{% endif %}
+			            
+			     	{% endif %}
+
+			     	{% if forloop.counter == 4 and page_obj.pages|length == 5 %}
+			     		
+			            		<a class='non-page'><span>...</span></a>
+			            
+			        {% endif %}
+			        {% if page %}
+			            {% ifequal page page_obj.number %}
+			            	
 			                <a class='active'><span class="current page">{{ page }}</span></a>
-			                {% if page_obj.has_next %}
-			        			<a class='non-page'><span>...</span></a>
-			   				 {% endif %}
+			                
 			                
 			            {% else %}
 			                <a href="?{{ page.querystring }}" class="page">{{ page }}</a>
