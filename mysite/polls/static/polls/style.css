@@ -230,6 +230,7 @@ table {
   display: flex;
   justify-content: left;
   position: relative;
+  padding-bottom: 30px;
 }
 
 .h2 {
@@ -240,8 +241,11 @@ table {
 .joker {
   background-color: MidnightBlue;
   color: #f2d53c;
- width: 8em;
+  width: 8em;
   height: 2.5em;
   font-size: 20px;
+  opacity: 100;
 }
+
+.joker:hover {background-color: #c2dde6; color: MidnightBlue;}
 

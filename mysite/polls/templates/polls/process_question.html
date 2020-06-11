@@ -10,27 +10,49 @@
 			<h2 style="color:MidnightBlue; font-size: 30px;">Въпрос {{ position }}</h2>
 			<div class="joker-container">
 				<h2 style="color:MidnightBlue; font-size: 30px;">{{ price }}лв</h2>
-				<div id="quit">
-					<button class='joker'>50:50</button>
-				</div>
-				<div id="quit">
-					<button class='joker'>Публика</button>
-				</div>
-				<div id="quit">
-					<button class='joker'>Телефонно обаждане</button>
-				</div>
+				{% if '50:50' in jokers %}
+					<div id="quit">
+						<button type='submit' formaction="{% url 'polls:game_vote' question.id %}" formmethod="POST" name="position + joker" value="{{ position }},50:50" class='joker'>50:50</button>
+					</div>
+				{% endif %}
+
+				{% if 'public' in jokers %}
+					<div id="quit">
+						<button type='submit' formaction="{% url 'polls:game_vote' question.id %}" formmethod="POST" name="position + joker" value="{{ position }},public" class='joker'>Публика</button>
+					</div>
+				{% endif %}
+
+				{% if 'call' in jokers %}
+					<div id="quit">
+						<button type='submit' formaction="{% url 'polls:game_vote' question.id %}" formmethod="POST" name="position + joker" value="{{ position }},call" class='joker'>Телефонно обаждане</button>
+					</div>
+				{% endif %}
 			</div>
 
 			{% if error_message %}<p style="color: red; font-size: 20px;"><strong>{{ error_message }}</strong></p>{% endif %}
-			{% for choice in question.choice_set.all %}
-				<div class="container">
-					<label class="container">{{ choice.choice_text }}
-				  		<input type="radio" name="choice" id="choice{{ forloop.counter }}" value="{{ choice.id }}" class="choice-field">
-				  		<span class="checkmark"></span>
-					</label>
-				</div>
-			{% endfor %}
-			<!-- <input type="submit" style='color: blue;' name='position' value="{{ position }}"> -->
+			{% if choices %}
+				{% for choice in question.choice_set.all %}
+					<div class="container">
+						{% if choice not in choices%}
+							<label class="container" style="text-decoration: red line-through;">{{ choice.choice_text }}</label>
+						{% else %}
+							<label class="container">{{ choice.choice_text }}
+						  		<input type="radio" name="choice" id="choice{{ forloop.counter }}" value="{{ choice.id }}" class="choice-field"><span class="checkmark"></span>
+							</label>
+						{% endif %}
+					</div>
+				{% endfor %}
+			{% else %}
+				{% for choice in question.choice_set.all %}
+					<div class="container">
+						<label class="container">{{ choice.choice_text }}
+					  		<input type="radio" name="choice" id="choice{{ forloop.counter }}" value="{{ choice.id }}" class="choice-field">
+					  		<span class="checkmark"></span>
+						</label>
+					</div>
+				{% endfor %}
+			{% endif %}
+
 			<div id="divs-in-left-aligned-horizontally">
 				<div id="choice-button">
 					<button type="submit" style='color: MidnightBlue; background-color: #c2dde6; border-color: MidnightBlue;' name='position' value="{{ position }}" class="choice">Избор</button>

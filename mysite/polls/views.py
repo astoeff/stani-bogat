@@ -9,6 +9,7 @@ import random
 from django.views.decorators.clickjacking import xframe_options_exempt
 from pure_pagination import Paginator
 from pure_pagination.mixins import PaginationMixin
+import copy
 
 
 def index(request):
@@ -212,31 +213,48 @@ def get_all_categories_sorted_by_price():
 #     return HttpResponseRedirect(reverse('polls:random', args=(category.id,)))
 
 def game(request):
-    # money_if_game_lost = '1000'
     position = int(request.POST['category_position'])
     if position == 15:
         return render(request, 'polls/congratulations.html', {})
     category = get_all_categories_sorted_by_price()[position]
     question = choose_random_question_in_category(category.id)
-    return render(request, 'polls/process_question.html', {'question': question, 'price': category,
-                'position': position + 1})
+    return render(request, 'polls/process_question.html',
+                  {'question': question, 'price': category,
+                   'position': position + 1, 'jokers': ['50:50', 'public', 'call']})
 
 
 def game_vote(request, question_id):
     question = get_object_or_404(Question, pk=question_id)
-    position = request.POST['position']
-    print(position)
-    # return 0
+    if 'position + joker' in request.POST:
+        data = request.POST['position + joker'].split(',')
+        position = data[0]
+        joker = data[1]
+    else:
+        position = request.POST['position']
+        joker = None
+
+    if 'position + joker' in request.POST:
+        if joker == '50:50':
+            random_wrong_answer = random.choice(question.choice_set.all().filter(is_correct=False))
+            return render(request, 'polls/process_question.html', {
+                'question': question,
+                'price': question.category.price,
+                'position': position,
+                'choices': [i for i in question.choice_set.all() if i == random_wrong_answer or i.is_correct is True],
+                'jokers': ['public', 'call']
+            })
     try:
         selected_choice = question.choice_set.get(pk=request.POST['choice'])
     except (KeyError, Choice.DoesNotExist):
         # Redisplay the question voting form.
+        # context = copy.copy(request.POST)
+        # context['error_message'] = "Моля, изберете отговор!"
         return render(request, 'polls/process_question.html', {
             'question': question,
             'price': question.category.price,
             'position': position,
             'error_message': "Моля, изберете отговор!",
-        })
+            'jokers': ['50:50', 'public', 'call']})
     else:
         selected_choice.votes += 1
         selected_choice.save()
@@ -245,6 +263,7 @@ def game_vote(request, question_id):
         # user hits the Back button.
         # return HttpResponseRedirect(reverse('polls:results', args=(question.id, selected_choice.id)))
         return render(request, 'polls/game_results.html', {'question': question, 'choice': selected_choice, 'position': position})
+
 
 def take_money(request):
     categories = get_all_categories_sorted_by_price()
